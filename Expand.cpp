@@ -45,14 +45,14 @@ void UGraph::expand(vector<int> C, vector<int> P, vector<int> ColOrd,
 	for (int i = m - 1; i >= 0; i--)
 	{
 		int v = P[i];
-		if (C.size() + color[i] <= SMax) return;
+		if (C.size() + color[i] <= SMax) return; //pruning
 		C.push_back(v);
 		vector<int> newP;
 		vector<int> newColOrd;
 		for (int j = 0; j <= i; j++)
 		{
 			int u = P[j];
-			if (A[u][v] && cor[u] >= SMax) newP.push_back(u);
+			if (A[u][v] && cor[u] >= SMax) newP.push_back(u); //pruning
 			int w = ColOrd[j];
 			if (A[v][w] && cor[w] >= SMax) newColOrd.push_back(w);
 		}

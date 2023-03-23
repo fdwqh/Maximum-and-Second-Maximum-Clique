@@ -40,7 +40,7 @@ public:
 	}
 
 	void seed();
-	void search();
+	void search(vector<vector<bool>> A, vector<int> degree, vector<int> cor);
 	bool conflict(int v, const vector<int> &colorClass);
 	void colorSort(vector<int> C, vector<int> ColOrd, vector<int> &P,
 		vector<int> &color, vector<vector<int>> &colorClass);
@@ -79,4 +79,7 @@ public:
 		} 
 		reverse(ColOrd.begin(), ColOrd.end());
 	}
+
+	void insertEdge(int u, int v);
+	void removeEdge(int u, int v);
 };
