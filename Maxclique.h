@@ -20,6 +20,7 @@ public:
 	long long cpuTime;
 	int FMax; // Size of First Maximum Clique
 	int SMax; // Size of Second Maximum Clique
+	int SMAX_BOUND;
 	vector<int> H1; // First Maximum Clique
 	unordered_map<int, bool> H_dict;
 	vector<int> H2; // Second Maximum Clique
@@ -32,7 +33,7 @@ public:
 		this->n = n;
 		this->A = A;
 		this->degree = degree;
-		nodes = FMax = SMax = 0;
+		nodes = FMax = SMax = SMAX_BOUND = 0;
 		cpuTime = timeLimit = -1;
 		solution.resize(n);
 		cor.resize(n);
@@ -60,6 +61,7 @@ public:
 			for (int u : C) if (H_dict.find(u) == H_dict.end()) { ok = true; break; }
 			if (ok) { SMax = C.size(); H2 = C; }
 		}
+		SMAX_BOUND = max(SMAX_BOUND, SMax);
 	}
 
 	void orderVertices(vector<Vertex> V, vector<int> &ColOrd, vector<int> &cor)
@@ -81,5 +83,9 @@ public:
 	}
 
 	void insertEdge(int u, int v);
+	int delInit(int w, const unordered_map<int, bool> &dict, const vector<int> &H);
+	void delWork(int u, int v, unordered_map<int, bool> &dict, vector<int> &H, int &_size);
+	bool Find(vector<int> &C, vector<int> P);
+	bool maxFind();
 	void removeEdge(int u, int v);
 };

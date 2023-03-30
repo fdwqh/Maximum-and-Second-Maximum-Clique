@@ -51,7 +51,7 @@ void UGraph::search(vector<vector<bool>> A, vector<int> degree, vector<int> cor)
 
 		// Remove u from G and explicitly remove vertices from G 
 		for (int v : V) 
-			if (A[u][v]) { A[u][v] = A[v][u] = 0; degree[v]--; cor[v] = max(cor[v], degree[v]); }
+			if (A[u][v]) { A[u][v] = A[v][u] = 0; degree[v]--; cor[v] = min(cor[v], degree[v]); }
 		vector<int> T;
 		for (int v : V) if (cor[v] >= SMax && v != u) T.push_back(v);
 		V = T;

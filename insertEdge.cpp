@@ -29,5 +29,5 @@ void UGraph::insertEdge(int u, int v)
 	expand(C, P, ColOrd_e, cor_e);
 
 	for (int i : H1) cout << i << ' '; cout << endl;
-	for (int i : H2) cout << i << ' '; cout << endl;
+	//for (int i : H2) cout << i << ' '; cout << endl;
 }
