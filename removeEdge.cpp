@@ -89,9 +89,10 @@ void UGraph::removeEdge(int u, int v)
 	else if (FMax < SMAX_BOUND && SMax < SMAX_BOUND)
 	{
 		vector<int> T(H1);
-		if (maxFind()) { SMax = SMAX_BOUND = T.size(); H2 = T; }
+		if (maxFind()) { SMax = T.size(); H2 = T; }
 		else { SMAX_BOUND = FMax; }
 	}
 
 	for (int i : H1) cout << i << ' '; cout << endl;
+	for (int i : H2) cout << i << ' '; cout << endl;
 }
