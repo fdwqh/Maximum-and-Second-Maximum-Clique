@@ -18,14 +18,20 @@ int main()
 	}
 	UGraph MC(n, A, degree); 
 
-	MC.search();
+	MC.search(MC.A, MC.degree, MC.cor);
 	/*for (int i = 0; i < n; i++)
 	{
 		for (int j = 0; j < n; j++)
 			cout << MC.A[i][j] << ' ';
 		cout << endl;
 	}*/
-
+	bool sig;
+	int u, v;
+	while (cin >> sig >> u >> v)
+	{
+		if (sig) MC.insertEdge(u, v);
+		else MC.removeEdge(u, v);
+	}
 	system("pause");
 	return 0;
 }
