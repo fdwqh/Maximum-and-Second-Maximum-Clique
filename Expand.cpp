@@ -12,7 +12,7 @@ bool UGraph::conflict(int v, const vector<int> &colorClass)
 
 void UGraph::colorSort(vector<int> C, vector<int> ColOrd, vector<int> &P, 
 	vector<int> &color, vector<vector<int>> &colorClass)
-{
+{//染色，从核数大的开始染；color[i]表示P[i]的颜色
 	int colors = 0;
 	int m = ColOrd.size();
 	for (int i = 0; i < m; i++) colorClass[i].clear();
@@ -45,14 +45,14 @@ void UGraph::expand(vector<int> C, vector<int> P, vector<int> ColOrd,
 	for (int i = m - 1; i >= 0; i--)
 	{
 		int v = P[i];
-		if (C.size() + color[i] <= SMax) return;
+		if (C.size() + color[i] <= SMax) return; //pruning
 		C.push_back(v);
 		vector<int> newP;
 		vector<int> newColOrd;
 		for (int j = 0; j <= i; j++)
 		{
 			int u = P[j];
-			if (A[u][v] && cor[u] >= SMax) newP.push_back(u);
+			if (A[u][v] && cor[u] >= SMax) newP.push_back(u); //pruning
 			int w = ColOrd[j];
 			if (A[v][w] && cor[w] >= SMax) newColOrd.push_back(w);
 		}

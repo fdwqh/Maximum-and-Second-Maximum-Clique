@@ -1,21 +1,24 @@
 #include"Maxclique.h"
 
-void UGraph::search()
+void UGraph::search(vector<vector<bool>> A, vector<int> degree, vector<int> cor)
 {
 	vector<Vertex> U;
 	for (int i = 0; i < n; i++)  U.push_back(Vertex(i, degree[i]));
 	orderVertices(U, ColOrd, cor);
-	for (int i = 0; i < n; i++) cout << cor[i] << ' '; cout << endl;
+	for (int i = 0; i < n; i++) Ecore[i] = cor[i];
+	/*for (int i = 0; i < n; i++) cout << cor[i] << ' '; cout << endl;*/
 	seed();
+	/*
 	for (int i : H1) cout << i << ' '; cout << endl;
 	for (int i : H2) cout << i << ' '; cout << endl;
+	*/
 	vector<int> V;
 	for (int i = 0; i < n; i++)
 		if (cor[i] >= SMax)
 			V.push_back(i);
 		else
 			for (int j = 0; j < n; j++) 
-				if (A[i][j]) { A[i][j] = 0; degree[j]--; }
+				if (A[i][j]) { A[i][j] = 0; degree[j]--; } 
 	while (!V.empty())
 	{
 		// Let u be the vertex with smallest degree 
@@ -34,7 +37,7 @@ void UGraph::search()
 			P.push_back(u);
 			n_u = 1;
 			for (int v : V) 
-				if (A[u][v] && degree[u] >= SMax)
+				if (A[u][v] && degree[u] >= SMax) // pruning
 				{
 					P.push_back(v);
 					n_u++;
@@ -51,12 +54,14 @@ void UGraph::search()
 
 		// Remove u from G and explicitly remove vertices from G 
 		for (int v : V) 
-			if (A[u][v]) { A[u][v] = A[v][u] = 0; degree[v]--; }
+			if (A[u][v]) { A[u][v] = A[v][u] = 0; degree[v]--; cor[v] = min(cor[v], degree[v]); }
 		vector<int> T;
 		for (int v : V) if (cor[v] >= SMax && v != u) T.push_back(v);
 		V = T;
 	}
+	/*
 	puts("");
 	for (int i : H1) cout << i << ' '; cout << endl;
-	for (int i : H2) cout << i << ' ';
+	for (int i : H2) cout << i << ' '; cout << endl;
+	*/
 }
